@@ -30,8 +30,12 @@ class sprite {
         c.fillRect(this.position.x, this.position.y, this.width, this.height)
 
         // Attack Box
+        if (this.isAttacking) {}
         c.fillStyle = 'green'
-        c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
+        c.fillRect(this.attackBox.position.x, 
+            this.attackBox.position.y, 
+            this.attackBox.width, 
+            this.attackBox.height)
     }
 
 
@@ -138,6 +142,7 @@ function animate() {
         && player.attackBox.position.y <= enemy.position.y + enemy.height &&
         player.isAttacking
         ) {
+            player.isAttacking = false
         console.log('go')
      }
 }
@@ -158,6 +163,9 @@ window.addEventListener('keydown', (event) =>{
         break
         case 'w':
         player.velocity.y = -20 //Jump
+        break
+        case ' ':
+        player.attack()
         break
         case ' ':
         player.attack()
