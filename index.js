@@ -1,4 +1,4 @@
-const canvas = document.querySelector('canvas');
+const canvas = document.querySelector('canvas');   //video 1:05:20
 const c = canvas.getContext('2d')
 
 canvas.width = 1024
@@ -18,9 +18,12 @@ class sprite {
         this.height = 150
         this.lastKey
         this.attackBox = {
-            position: this.position,
+            position: {
+                x: this.position.x,
+                y: this.position.y
+            },
             width: 100,              // Attack width
-            height: 50,               // Attack height
+            height: 50              // Attack height
         }
         this.color = color
         this.isAttacking
@@ -29,14 +32,14 @@ class sprite {
         c.fillStyle = this.color
         c.fillRect(this.position.x, this.position.y, this.width, this.height)
 
-        // Attack Box
-        if (this.isAttacking) {
+        // // Attack Box
+        // if (this.isAttacking) {
         c.fillStyle = 'green'
         c.fillRect(this.attackBox.position.x, 
             this.attackBox.position.y, 
             this.attackBox.width, 
             this.attackBox.height)
-    }
+    // }
 }
 
 
@@ -45,6 +48,9 @@ class sprite {
 
     update() {
         this.draw()
+        this.attackBox.position.x = this.position.x -50
+        this.attackBox.position.y = this.position.y
+
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y
 
