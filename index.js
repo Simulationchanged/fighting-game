@@ -1,4 +1,4 @@
-const canvas = document.querySelector('canvas');   //Last stamp: video 1:05:20   Problematic changes:1:11
+const canvas = document.querySelector('canvas');   //Last stamp: video 1:29:00   Problematic changes:1:11
 
 const c = canvas.getContext('2d')
 
