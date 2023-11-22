@@ -1,4 +1,5 @@
-const canvas = document.querySelector('canvas');   //video 1:05:20
+const canvas = document.querySelector('canvas');   //Last stamp: video 1:05:20   Problematic changes:1:11
+
 const c = canvas.getContext('2d')
 
 canvas.width = 1024
@@ -11,7 +12,7 @@ c.fillRect(0, 0, canvas.width, canvas.height)
 const gravity = 0.7
 
 class sprite {
-    constructor({position,velocity, color= 'red'}) {
+    constructor({position,velocity, color= 'red', offset}) {
         this.position = position
         this.velocity = velocity
         this.width = 50
@@ -22,6 +23,7 @@ class sprite {
                 x: this.position.x,
                 y: this.position.y
             },
+            offset,
             width: 100,              // Attack width
             height: 50              // Attack height
         }
@@ -32,14 +34,16 @@ class sprite {
         c.fillStyle = this.color
         c.fillRect(this.position.x, this.position.y, this.width, this.height)
 
-        // // Attack Box
-        // if (this.isAttacking) {
+        // Attack Box
+        if (this.isAttacking) {
         c.fillStyle = 'green'
-        c.fillRect(this.attackBox.position.x, 
+        c.fillRect(
+            this.attackBox.position.x, 
             this.attackBox.position.y, 
             this.attackBox.width, 
-            this.attackBox.height)
-    // }
+            this.attackBox.height
+            )
+     }
 }
 
 
@@ -48,7 +52,7 @@ class sprite {
 
     update() {
         this.draw()
-        this.attackBox.position.x = this.position.x -50
+        this.attackBox.position.x = this.position.x + this.attackBox.offset.x
         this.attackBox.position.y = this.position.y
 
         this.position.x += this.velocity.x
@@ -75,6 +79,10 @@ const player = new sprite({
 velocity: {
     x: 0,
     y: 0
+},
+offset: {
+    x: 0, 
+    y: 0
 }
 })
 
@@ -88,7 +96,11 @@ velocity: {
     x: 0,
     y: 0
 },
-color: 'blue'
+color: 'blue',
+offset: {
+    x:-50,
+    y: 0
+ }
 })
 
 
@@ -114,7 +126,17 @@ const keys = {
 
 }
 
-
+function reactangularCollison({rectangle1, reactangle2}){
+    return(
+        rectangle1.attackBox.position.x + player.attackBox.width >= 
+        reactangle2.position.x && 
+        rectangle1.attackBox.position.x <= reactangle2.position.x + 
+        reactangle2.width &&
+        rectangle1.attackBox.position.y + player.attackBox.height >= 
+        reactangle2.position.y
+        && rectangle1.attackBox.position.y <= reactangle2.position.y + reactangle2.height
+    )
+}
 
 function animate() {
     window.requestAnimationFrame(animate)
@@ -143,14 +165,26 @@ function animate() {
     }
 
     // detect for collision
-     if (player.attackBox.position.x + player.attackBox.width >= enemy.position.x && 
-        player.attackBox.position.x <= enemy.position.x + enemy.width &&
-        player.attackBox.position.y + player.attackBox.height >= enemy.position.y
-        && player.attackBox.position.y <= enemy.position.y + enemy.height &&
+     if (
+        reactangularCollison({
+            rectangle1: player,
+            reactangle2: enemy
+        }) &&
         player.isAttacking
         ) {
             player.isAttacking = false
         console.log('go')
+     }
+
+     if (
+        reactangularCollison({
+            rectangle1: enemy,
+            reactangle2: player
+        }) &&
+        enemy.isAttacking
+        ) {
+            enemy.isAttacking = false
+        console.log('enemy attack succesful')
      }
 }
 
@@ -158,7 +192,6 @@ function animate() {
 animate()
 
 window.addEventListener('keydown', (event) =>{
-    console.log(event.key);
     switch(event.key) {
         case 'd':
         keys.d.pressed = true
@@ -189,9 +222,17 @@ window.addEventListener('keydown', (event) =>{
             case 'ArrowUp':
             enemy.velocity.y = -20 //Jump
             break
+            case 'ArrowDown':
+            enemy.attack()
+            break
+            case 'ArrowDown':
+            enemy.attack()
+            break
+            
+           
         
     }
-    console.log(event.key);
+
 
 })
 
@@ -219,6 +260,6 @@ window.addEventListener('keyup', (event) =>{
         break
 
     }
-    console.log(event.key);
+
 
 })
