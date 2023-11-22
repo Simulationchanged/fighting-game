@@ -1,16 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fight game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<!-- Body
+ -->
 <body>
-    <div>
-        <div>
-            <!-- Player Health -->
-            <div></div> 
-            <!-- Timer -->
-            <div></div>
-            <!-- Enemy Health -->
-            <div></div>
+    <body>
+        <!-- Red Container Div -->
+        <div class="redcontainerdiv">
+            <!-- Smaller Red Container Div -->
+            <div class="smallerredcontainerdiv">
+                <!-- Player Health -->
+                <div class="playerhealth"></div> 
+                <!-- Timer -->
+                <div class="timer"></div>
+                
+                <div class="enemyhealthdiv">
+                    <!-- Enemy Health -->
+                    <div id="enemyHealthbar" class="enemyhealth"></div>
+                    <!-- EnemyHealth Barometer -->
+                    <div class="enemyhealthbarometer"></div>
+                </div>
+                
+            </div>
+            <canvas></canvas>
         </div>
-        <canvas></canvas>
-    </div>
+    
+    
+        <script src="index.js"></script>
+    </body>
 
-
-    <script src="index.js"></script>
+    
 </body>
+</html>

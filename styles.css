@@ -1,0 +1,56 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Red Container Div */
+.redcontainerdiv{
+    position: relative;
+    display: inline-block;
+}
+
+/* Smaller Red Container Div */
+.smallerredcontainerdiv{
+    position: absolute;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Player Health */
+.playerhealth{
+    background-color: rgb(255, 200, 0);
+    height: 30px;
+    width: 100%;
+}
+
+/* Timer */
+.timer {
+background-color: red;
+width: 100px;
+height: 100px;
+flex-shrink: 0;
+}
+
+/* Enemy Health Bar */
+.enemyhealthdiv{
+    position: relative;
+    height: 30px;
+    width: 100%;
+}
+
+/* Enemy Health */
+.enemyhealth{
+    background-color: rgb(255, 200, 0);
+    height: 30px;
+}
+.enemyhealthbarometer{
+    position: absolute;
+    background: blue;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
