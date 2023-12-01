@@ -16,19 +16,31 @@
         <div class="redcontainerdiv">
             <!-- Smaller Red Container Div -->
             <div class="smallerredcontainerdiv">
-                <!-- Player Health -->
+        
+                <!-- Player Health div  -->
+                <div class="playerhealthdiv">
+                     <!-- Player Health -->
                 <div class="playerhealth"></div> 
+                <!-- PlayerHealth Barometer -->
+                    <div class="playerhealthbarometer" id="playerhealthbar"></div>
+                </div>
+               
                 <!-- Timer -->
-                <div class="timer"></div>
-                
+                <div class="timer" id="timer">
+                    10
+                </div>
+
+
+                <!-- Enemy Health div -->
                 <div class="enemyhealthdiv">
                     <!-- Enemy Health -->
-                    <div id="enemyHealthbar" class="enemyhealth"></div>
+                    <div  class="enemyhealth"></div>
                     <!-- EnemyHealth Barometer -->
-                    <div class="enemyhealthbarometer"></div>
+                    <div class="enemyhealthbarometer" id="enemyHealthbar"></div>
                 </div>
                 
             </div>
+            <div class="unentschieden" id="displayText">Unentschieden!</div>
             <canvas></canvas>
         </div>
     

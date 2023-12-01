@@ -1,4 +1,4 @@
-const canvas = document.querySelector('canvas');   //Last stamp: video 1:29:00   Problematic changes:1:11
+const canvas = document.querySelector('canvas');   //Last stamp: video 1:44:00   Problematic changes:1:11
 
 const c = canvas.getContext('2d')
 
@@ -29,6 +29,7 @@ class sprite {
         }
         this.color = color
         this.isAttacking
+        this.health = 100
     }
     draw(){
         c.fillStyle = this.color
@@ -137,6 +138,24 @@ function reactangularCollison({rectangle1, reactangle2}){
         && rectangle1.attackBox.position.y <= reactangle2.position.y + reactangle2.height
     )
 }
+let timer = 10;
+
+function decreaseTimer() {
+    if (timer > 0) {
+        timer--;
+        document.querySelector('#timer').innerHTML = timer;
+        setTimeout(decreaseTimer, 1000); // Setze den Timeout nur, wenn der Timer noch nicht 0 ist
+    } else if (timer === 0) {
+        // Code für das Ende des Timers
+        if(player.health === enemy.health) {
+            document.querySelector('#displayText').innerHTML = 'Unentschieden!';
+            document.querySelector('#displayText').style.display = 'flex';
+        }
+    }
+}
+
+decreaseTimer(); // Erster Aufruf der Funktion
+
 
 function animate() {
     window.requestAnimationFrame(animate)
@@ -173,7 +192,8 @@ function animate() {
         player.isAttacking
         ) {
             player.isAttacking = false
-            document.querySelector('#enemyHealthbar').style.width = '20%'
+            enemy.health -= 2 
+            document.querySelector('#enemyHealthbar').style.width = enemy.health + '%'
      }
 
      if (
@@ -184,7 +204,8 @@ function animate() {
         enemy.isAttacking
         ) {
             enemy.isAttacking = false
-        console.log('enemy attack succesful')
+            player.health -= 2 
+            document.querySelector('#playerhealthbar').style.width = player.health + '%'
      }
 }
 

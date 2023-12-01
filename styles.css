@@ -18,11 +18,28 @@
     align-items: center;
     padding: 20px;
 }
+/* Player Health Bar */
+.playerhealthdiv{
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    height: 30px;
+    width: 100%;   
+}
 
 /* Player Health */
 .playerhealth{
     background-color: rgb(255, 200, 0);
     height: 30px;
+    width: 100%;
+}
+/* Player Barometer */
+.playerhealthbarometer{
+    position: absolute;
+    background: blue;
+    top: 0;
+    right: 0;
+    bottom: 0;
     width: 100%;
 }
 
@@ -32,6 +49,9 @@ background-color: red;
 width: 100px;
 height: 100px;
 flex-shrink: 0;
+display: flex;
+align-items: center;
+justify-content: center;
 }
 
 /* Enemy Health Bar */
@@ -46,6 +66,7 @@ flex-shrink: 0;
     background-color: rgb(255, 200, 0);
     height: 30px;
 }
+/* Enemy Barometer */
 .enemyhealthbarometer{
     position: absolute;
     background: blue;
@@ -53,4 +74,17 @@ flex-shrink: 0;
     right: 0;
     bottom: 0;
     left: 0;
+}
+
+/* Unentschieden Div */
+.unentschieden{
+    position: absolute;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: none;
 }
