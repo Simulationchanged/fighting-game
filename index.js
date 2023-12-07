@@ -138,19 +138,29 @@ function reactangularCollison({rectangle1, reactangle2}){
         && rectangle1.attackBox.position.y <= reactangle2.position.y + reactangle2.height
     )
 }
-let timer = 10;
 
+function determineWinner({player, enemy, timerId}) {
+    clearTimeout(timerId)
+    document.querySelector('#displayText').style.display = 'flex'; 
+    if(player.health === enemy.health) {
+        document.querySelector('#displayText').innerHTML = 'Unentschieden!';
+    } else if (player.health > enemy.health) {
+        document.querySelector('#displayText').innerHTML = 'Player 1 Wins';
+    } else if (player.health < enemy.health) {
+        document.querySelector('#displayText').innerHTML = 'Player 2 Wins';
+    }  
+}
+
+let timer = 60;
+let timeId
 function decreaseTimer() {
     if (timer > 0) {
         timer--;
         document.querySelector('#timer').innerHTML = timer;
-        setTimeout(decreaseTimer, 1000); // Setze den Timeout nur, wenn der Timer noch nicht 0 ist
+       timerId = setTimeout(decreaseTimer, 1000); // Setze den Timeout nur, wenn der Timer noch nicht 0 ist
     } else if (timer === 0) {
         // Code für das Ende des Timers
-        if(player.health === enemy.health) {
-            document.querySelector('#displayText').innerHTML = 'Unentschieden!';
-            document.querySelector('#displayText').style.display = 'flex';
-        }
+        determineWinner({player, enemy, timerId})
     }
 }
 
@@ -206,6 +216,9 @@ function animate() {
             enemy.isAttacking = false
             player.health -= 2 
             document.querySelector('#playerhealthbar').style.width = player.health + '%'
+     }
+     if (enemy.health <= 0 ||  player.health <= 0){
+        determineWinner({player, enemy, timerId})
      }
 }
 
