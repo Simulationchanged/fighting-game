@@ -1,4 +1,4 @@
-const canvas = document.querySelector('canvas');   //Last stamp: video 1:44:00   Problematic changes:1:11
+const canvas = document.querySelector('canvas');   //Last stamp: video 2:15:57   Problematic changes:1:11
 
 const c = canvas.getContext('2d')
 
@@ -11,68 +11,23 @@ c.fillRect(0, 0, canvas.width, canvas.height)
 
 const gravity = 0.7
 
-class sprite {
-    constructor({position,velocity, color= 'red', offset}) {
-        this.position = position
-        this.velocity = velocity
-        this.width = 50
-        this.height = 150
-        this.lastKey
-        this.attackBox = {
-            position: {
-                x: this.position.x,
-                y: this.position.y
-            },
-            offset,
-            width: 100,              // Attack width
-            height: 50              // Attack height
-        }
-        this.color = color
-        this.isAttacking
-        this.health = 100
-    }
-    draw(){
-        c.fillStyle = this.color
-        c.fillRect(this.position.x, this.position.y, this.width, this.height)
-
-        // Attack Box
-        if (this.isAttacking) {
-        c.fillStyle = 'green'
-        c.fillRect(
-            this.attackBox.position.x, 
-            this.attackBox.position.y, 
-            this.attackBox.width, 
-            this.attackBox.height
-            )
-     }
-}
-
-
-    
-    
-
-    update() {
-        this.draw()
-        this.attackBox.position.x = this.position.x + this.attackBox.offset.x
-        this.attackBox.position.y = this.position.y
-
-        this.position.x += this.velocity.x
-        this.position.y += this.velocity.y
-
-        if (this.position.y + this.height + this.velocity.y >= canvas.height) {
-         this.velocity.y = 0   
-        } else this.velocity.y += gravity
-    }
-
-    attack () {
-        this.isAttacking = true
-        setTimeout(() => {
-            this.isAttacking = false
-        }, 100)
-    }
-}
-
-const player = new sprite({
+const background =  new sprite({
+position: {
+    x: 0,
+    y: 0
+    },
+    imagesSrc: './img/background.png'    
+})
+const shop =  new sprite({
+    position: {
+        x: 600,
+        y: 128
+        },
+        imagesSrc: './img/shop.png',
+        scale: 2.75 ,
+        framesMax: 6  
+    })
+const player = new Fighter({
     position: {
     x: 0,
     y: 0
@@ -88,7 +43,7 @@ offset: {
 })
 
 
-const enemy = new sprite({
+const enemy = new Fighter({
     position: {
     x: 400,
     y: 100
@@ -127,43 +82,6 @@ const keys = {
 
 }
 
-function reactangularCollison({rectangle1, reactangle2}){
-    return(
-        rectangle1.attackBox.position.x + player.attackBox.width >= 
-        reactangle2.position.x && 
-        rectangle1.attackBox.position.x <= reactangle2.position.x + 
-        reactangle2.width &&
-        rectangle1.attackBox.position.y + player.attackBox.height >= 
-        reactangle2.position.y
-        && rectangle1.attackBox.position.y <= reactangle2.position.y + reactangle2.height
-    )
-}
-
-function determineWinner({player, enemy, timerId}) {
-    clearTimeout(timerId)
-    document.querySelector('#displayText').style.display = 'flex'; 
-    if(player.health === enemy.health) {
-        document.querySelector('#displayText').innerHTML = 'Unentschieden!';
-    } else if (player.health > enemy.health) {
-        document.querySelector('#displayText').innerHTML = 'Player 1 Wins';
-    } else if (player.health < enemy.health) {
-        document.querySelector('#displayText').innerHTML = 'Player 2 Wins';
-    }  
-}
-
-let timer = 60;
-let timeId
-function decreaseTimer() {
-    if (timer > 0) {
-        timer--;
-        document.querySelector('#timer').innerHTML = timer;
-       timerId = setTimeout(decreaseTimer, 1000); // Setze den Timeout nur, wenn der Timer noch nicht 0 ist
-    } else if (timer === 0) {
-        // Code für das Ende des Timers
-        determineWinner({player, enemy, timerId})
-    }
-}
-
 decreaseTimer(); // Erster Aufruf der Funktion
 
 
@@ -171,6 +89,8 @@ function animate() {
     window.requestAnimationFrame(animate)
     c.fillStyle = 'black'
     c.fillRect(0,0, canvas.width, canvas.height)
+    background.update()
+    shop.update()
     player.update()
     enemy.update()
     
