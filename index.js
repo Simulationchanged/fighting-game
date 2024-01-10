@@ -1,4 +1,4 @@
-const canvas = document.querySelector('canvas');   //Last stamp: video 2:15:57   Problematic changes:1:11
+const canvas = document.querySelector('canvas');   //Last stamp: video 2:31:00   Problematic changes:1:11
 
 const c = canvas.getContext('2d')
 
@@ -39,7 +39,10 @@ velocity: {
 offset: {
     x: 0, 
     y: 0
-}
+},
+imagesSrc: './img/samuraiMack/Idle.png',
+framesMax: 8,
+scale: 2.5
 })
 
 
