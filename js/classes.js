@@ -2,7 +2,8 @@
 class sprite {
     constructor({
         position, 
-        imagesSrc, scale = 1, 
+        imageSrc, 
+        scale = 1, 
         framesMax = 1, 
         offset = {x: 0, y:0} 
     }) {
@@ -10,7 +11,7 @@ class sprite {
         this.width = 50
         this.height = 150
         this.image = new Image()
-        this.image.src = imagesSrc
+        this.image.src = imageSrc
         this.scale = scale
         this.framesMax = framesMax
         this.framesCurrent = 0
@@ -18,6 +19,7 @@ class sprite {
         this.framesHold = 7
         this.offset = offset
     }
+    
     draw(){
         c.drawImage(
             this.image, 
@@ -64,7 +66,7 @@ class Fighter extends sprite {
         position,
         velocity, 
         color= 'red', 
-        imagesSrc, 
+        imageSrc, 
         scale = 1, 
         framesMax = 1,
         offset = {x: 0, y:0},
@@ -72,7 +74,7 @@ class Fighter extends sprite {
     }) {
         super({
             position,
-            imagesSrc,
+            imageSrc,
             scale,
             framesMax,
             offset

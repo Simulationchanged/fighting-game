@@ -16,14 +16,14 @@ position: {
     x: 0,
     y: 0
     },
-    imagesSrc: './img/background.png'    
+    imageSrc: './img/background.png'    
 })
 const shop =  new sprite({
     position: {
         x: 600,
         y: 128
         },
-        imagesSrc: './img/shop.png',
+        imageSrc: './img/shop.png',
         scale: 2.75 ,
         framesMax: 6  
     })
@@ -40,7 +40,7 @@ offset: {
     x: 0, 
     y: 0
 },
-imagesSrc: './img/samuraiMack/Idle.png',
+imageSrc: './img/samuraiMack/Idle.png',
 framesMax: 8,
 scale: 2.5,
 offset: {
@@ -49,11 +49,11 @@ offset: {
 },
 sprites: {
     idle: {
-        imagesSrc: './img/samuraiMack/Idle.png',
+        imageSrc: './img/samuraiMack/Idle.png',
         framesMax: 8
     },
     run: {
-        imagesSrc: './img/samuraiMack/Run.png',
+        imageSrc: './img/samuraiMack/Run.png',
         framesMax: 8
     }
 }
@@ -115,12 +115,13 @@ function animate() {
     enemy.velocity.x = 0
 
     // Player movement
-
+    player.image = player.sprites.idle.image //default image/ stehender Samurai
     if (keys.a.pressed && player.lastKey === 'a') {
         player.velocity.x = -5 //playerspeed
-        player.image = player.sprites.run.image
+        player.image = player.sprites.run.image //move to left/ running left
     } else if(keys.d.pressed && player.lastKey === 'd') {
         player.velocity.x = 5 //playerspeed
+        player.image = player.sprites.run.image
     }
 
     // Enemy movementDDD
