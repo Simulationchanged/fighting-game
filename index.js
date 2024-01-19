@@ -55,6 +55,10 @@ sprites: {
     run: {
         imageSrc: './img/samuraiMack/Run.png',
         framesMax: 8
+    },
+    jump: {
+        imageSrc: './img/samuraiMack/Jump.png',
+        framesMax: 2
     }
 }
 })
@@ -115,13 +119,16 @@ function animate() {
     enemy.velocity.x = 0
 
     // Player movement
-    player.image = player.sprites.idle.image //default image/ stehender Samurai
+    player.switchSprite('idle') //default image/ stehender Samurai
     if (keys.a.pressed && player.lastKey === 'a') {
         player.velocity.x = -5 //playerspeed
-        player.image = player.sprites.run.image //move to left/ running left
+        player.switchSprite('run') //move to left/ running left
     } else if(keys.d.pressed && player.lastKey === 'd') {
         player.velocity.x = 5 //playerspeed
-        player.image = player.sprites.run.image
+        player.switchSprite('run')
+    }
+    if(player.velocity.y < 0){
+        player.switchSprite('jump')
     }
 
     // Enemy movementDDD
