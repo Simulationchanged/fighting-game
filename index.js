@@ -59,7 +59,16 @@ sprites: {
     jump: {
         imageSrc: './img/samuraiMack/Jump.png',
         framesMax: 2
+    },
+    fall: {
+        imageSrc: './img/samuraiMack/Fall.png',
+        framesMax: 2
+    },
+    attack1: {
+        imageSrc: './img/samuraiMack/Attack1.png',
+        framesMax: 6
     }
+    
 }
 })
 
@@ -77,7 +86,37 @@ color: 'blue',
 offset: {
     x:-50,
     y: 0
- }
+ },
+ imageSrc: './img/kenji/Idle.png',
+framesMax: 4,
+scale: 2.5,
+offset: {
+    x: 215,
+    y: 167
+},
+sprites: {
+    idle: {
+        imageSrc: './img/kenji/Idle.png',
+        framesMax: 4
+    },
+    run: {
+        imageSrc: './img/kenji/Run.png',
+        framesMax: 8
+    },
+    jump: {
+        imageSrc: './img/kenji/Jump.png',
+        framesMax: 2
+    },
+    fall: {
+        imageSrc: './img/kenji/Fall.png',
+        framesMax: 2
+    },
+    attack1: {
+        imageSrc: './img/kenji/Attack1.png',
+        framesMax: 4
+    }
+    
+}
 })
 
 
@@ -113,22 +152,27 @@ function animate() {
     background.update()
     shop.update()
     player.update()
-    // enemy.update()
+    enemy.update()
     
     player.velocity.x = 0
     enemy.velocity.x = 0
 
     // Player movement
-    player.switchSprite('idle') //default image/ stehender Samurai
+   
     if (keys.a.pressed && player.lastKey === 'a') {
         player.velocity.x = -5 //playerspeed
         player.switchSprite('run') //move to left/ running left
     } else if(keys.d.pressed && player.lastKey === 'd') {
         player.velocity.x = 5 //playerspeed
         player.switchSprite('run')
+    } else{
+        player.switchSprite('idle') //default image/ stehender Samurai
     }
+    // Jumping
     if(player.velocity.y < 0){
         player.switchSprite('jump')
+    } else if(player.velocity.y > 0){
+        player.switchSprite('fall')
     }
 
     // Enemy movementDDD
@@ -136,7 +180,7 @@ function animate() {
     if (keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
         enemy.velocity.x = -5 //enemyrspeed
     } else if(keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight') {
-        enemy.velocity.x = 5 //enemyspeed
+        enemy.velocity.x = 5 //enemyspeeddw
     }
 
     // detect for collision
