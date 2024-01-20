@@ -67,8 +67,20 @@ sprites: {
     attack1: {
         imageSrc: './img/samuraiMack/Attack1.png',
         framesMax: 6
+    },
+    takeHit: {
+        imageSrc: './img/samuraiMack/take Hit - white silhouette.png',
+        framesMax: 4
     }
     
+},
+attackBox: {
+    offset: {
+        x:100,
+        y:50
+    },
+    width:150,
+    height: 50
 }
 })
 
@@ -114,8 +126,20 @@ sprites: {
     attack1: {
         imageSrc: './img/kenji/Attack1.png',
         framesMax: 4
+    },
+    takeHit: {
+        imageSrc: './img/kenji/Take hit.png',
+        framesMax: 3
     }
     
+},
+attackBox: {
+    offset: {
+        x:-171,
+        y:50
+    },
+    width:171,
+    height: 50
 }
 })
 
@@ -175,37 +199,59 @@ function animate() {
         player.switchSprite('fall')
     }
 
-    // Enemy movementDDD
+    // Enemy movement
 
     if (keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
-        enemy.velocity.x = -5 //enemyrspeed
+        enemy.velocity.x = -5 //enemyspeed
+        enemy.switchSprite('run') //move to left/ running right
     } else if(keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight') {
-        enemy.velocity.x = 5 //enemyspeeddw
+        enemy.velocity.x = 5 //enemyspeed
+        enemy.switchSprite('run') //move to left/ running left
+    } else{
+        enemy.switchSprite('idle') //default image/ stehender Enemy
     }
 
-    // detect for collision
+    // Jumping
+       if(enemy.velocity.y < 0){
+        enemy.switchSprite('jump')
+    } else if(enemy.velocity.y > 0){
+        enemy.switchSprite('fall')
+    }
+
+    // detect for collision & enemy get Hit
      if (
         reactangularCollison({
             rectangle1: player,
             reactangle2: enemy
         }) &&
-        player.isAttacking
+        player.isAttacking && player.framesCurrent === 4
         ) {
-            player.isAttacking = false
-            enemy.health -= 2 
+            enemy.takeHit()
+            player.isAttacking = false 
             document.querySelector('#enemyHealthbar').style.width = enemy.health + '%'
      }
+
+     // if player misses
+     if(player.isAttacking && player.framesCurrent ===4){
+        player.isAttacking = false
+     }
+
+     // this is where player gets hit
 
      if (
         reactangularCollison({
             rectangle1: enemy,
             reactangle2: player
         }) &&
-        enemy.isAttacking
+        enemy.isAttacking && enemy.framesCurrent ===2
         ) {
+            player.takeHit()
             enemy.isAttacking = false
-            player.health -= 2 
             document.querySelector('#playerhealthbar').style.width = player.health + '%'
+     }
+     // if Enemy misses
+     if(enemy.isAttacking && enemy.framesCurrent ===2){
+        enemy.isAttacking = false
      }
      if (enemy.health <= 0 ||  player.health <= 0){
         determineWinner({player, enemy, timerId})
@@ -249,11 +295,6 @@ window.addEventListener('keydown', (event) =>{
             case 'ArrowDown':
             enemy.attack()
             break
-            case 'ArrowDown':
-            enemy.attack()
-            break
-            
-           
         
     }
 
