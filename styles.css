@@ -121,7 +121,9 @@ border: 4px solid rgb(217, 206, 212);
 
   
 }
-
+button{
+    font-size: 20px;
+}
 
 @media(max-width: 660px){
     body, html {
