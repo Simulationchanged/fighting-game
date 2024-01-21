@@ -78,6 +78,23 @@
                 <br>
                 press: 'arrow down'
             </div>
+
+   <!-- Steuerungstasten für Samurai -->
+   <div class="controls samurai-controls" id="samurai">
+    <button id="samuraiLeft">←</button>
+    <button id="samuraiRight">→</button>
+    <button id="samuraiJump">↑</button>
+    <button id="samuraiAttack">👊</button>
+</div>
+
+<!-- Steuerungstasten für Ninja -->
+<div class="controls ninja-controls">
+    <button id="ninjaLeft">←</button>
+    <button id="ninjaRight">→</button>
+    <button id="ninjaJump">↑</button>
+    <button id="ninjaAttack">👊</button>
+</div>
+
         </div>
     
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" 
@@ -87,6 +104,31 @@
         <script src="js/utils.js"></script>
         <script src="js/classes.js"></script>
         <script src="index.js"></script>
+
+        <script>
+// Touch-Ereignis-Listener für Samurai
+document.getElementById('samuraiLeft').addEventListener('touchstart', () => { keys.a.pressed = true; player.lastKey = 'a'; });
+document.getElementById('samuraiLeft').addEventListener('touchend', () => keys.a.pressed = false);
+
+document.getElementById('samuraiRight').addEventListener('touchstart', () => { keys.d.pressed = true; player.lastKey = 'd'; });
+document.getElementById('samuraiRight').addEventListener('touchend', () => keys.d.pressed = false);
+
+document.getElementById('samuraiJump').addEventListener('touchstart', () => player.velocity.y = -20);
+document.getElementById('samuraiAttack').addEventListener('touchstart', () => player.attack());
+
+// Touch-Ereignis-Listener für Ninja
+document.getElementById('ninjaLeft').addEventListener('touchstart', () => { keys.ArrowLeft.pressed = true; enemy.lastKey = 'ArrowLeft'; });
+document.getElementById('ninjaLeft').addEventListener('touchend', () => keys.ArrowLeft.pressed = false);
+
+document.getElementById('ninjaRight').addEventListener('touchstart', () => { keys.ArrowRight.pressed = true; enemy.lastKey = 'ArrowRight'; });
+document.getElementById('ninjaRight').addEventListener('touchend', () => keys.ArrowRight.pressed = false);
+
+document.getElementById('ninjaJump').addEventListener('touchstart', () => enemy.velocity.y = -20);
+document.getElementById('ninjaAttack').addEventListener('touchstart', () => enemy.attack());
+
+
+
+        </script>
     </body>
 
     
