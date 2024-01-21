@@ -7,6 +7,8 @@ canvas.height = 576
 
 c.fillRect(0, 0, canvas.width, canvas.height)
 
+
+
 // Gravity
 
 const gravity = 0.7
