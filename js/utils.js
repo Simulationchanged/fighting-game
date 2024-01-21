@@ -17,9 +17,9 @@ function determineWinner({player, enemy, timerId}) {
     if(player.health === enemy.health) {
         document.querySelector('#displayText').innerHTML = 'Unentschieden!';
     } else if (player.health > enemy.health) {
-        document.querySelector('#displayText').innerHTML = 'Player 1 Wins';
+        document.querySelector('#displayText').innerHTML = 'Samurai Wins';
     } else if (player.health < enemy.health) {
-        document.querySelector('#displayText').innerHTML = 'Player 2 Wins';
+        document.querySelector('#displayText').innerHTML = 'Ninja Wins';
     }  
 }
 

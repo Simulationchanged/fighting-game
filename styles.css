@@ -98,3 +98,8 @@ border: 4px solid rgb(217, 206, 212);
     left: 0;
     display: none;
 }
+.description{
+    position: absolute;
+    left: 200px;
+    margin-top: 30px;
+}

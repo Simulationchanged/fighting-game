@@ -1,4 +1,4 @@
-const canvas = document.querySelector('canvas');   //Last stamp: video 2:31:00   Problematic changes:1:11
+const canvas = document.querySelector('canvas');   
 
 const c = canvas.getContext('2d')
 
@@ -261,7 +261,7 @@ function animate() {
             player.takeHit()
             enemy.isAttacking = false
             gsap.to('#playerhealthbar', {
-                width: enemy.health + '%'
+                width: player.health + '%'
             })
      }
      // if Enemy misses
