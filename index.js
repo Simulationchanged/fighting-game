@@ -71,6 +71,10 @@ sprites: {
     takeHit: {
         imageSrc: './img/samuraiMack/take Hit - white silhouette.png',
         framesMax: 4
+    },
+    death: {
+        imageSrc: './img/samuraiMack/Death.png',
+        framesMax: 6
     }
     
 },
@@ -130,6 +134,10 @@ sprites: {
     takeHit: {
         imageSrc: './img/kenji/Take hit.png',
         framesMax: 3
+    },
+    death: {
+        imageSrc: './img/kenji/Death.png',
+        framesMax: 7
     }
     
 },
@@ -262,6 +270,7 @@ function animate() {
 animate()
 
 window.addEventListener('keydown', (event) =>{
+    if(!player.dead){
     switch(event.key) {
         case 'd':
         keys.d.pressed = true
@@ -279,8 +288,11 @@ window.addEventListener('keydown', (event) =>{
         break
         case ' ':
         player.attack()
-        break
-
+        break    
+    }
+}
+    if(!enemy.dead) {
+    switch(event.key){
         case 'ArrowRight':
             keys.ArrowRight.pressed = true
             enemy.lastKey = 'ArrowRight'
@@ -295,8 +307,8 @@ window.addEventListener('keydown', (event) =>{
             case 'ArrowDown':
             enemy.attack()
             break
-        
     }
+}
 
 
 })
